@@ -1,19 +1,31 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //user Schema
-let articleSchema = mongoose.Schema({
-    title:{
+const userSchema = new mongoose.Schema({
+    fullName:{
         type: String,
         required: true
     },
-    author:{
-        type:String,
-        required: true
-    },
-    body:{
+    email:{
         type: String,
         required: true
+    },
+    phone:{
+        type: String,
+        required: true
+    },
+    password:{
+        type: String,
+        required: true
+    },
+    bio:{
+        type: String,
+        required: false
+    },
+    profileImage:{
+        type: String,
+        required:false
     }
-
 });
-let Article = module.exports = mongoose.model('Article',articleSchema);
+
+module.exports = mongoose.model('User', userSchema);
