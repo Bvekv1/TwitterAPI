@@ -5,9 +5,9 @@ var morgan = require('morgan');
 var multer = require('multer');
 var upload = multer();
 var cors = require('cors');
-const uploadRouter = require('./controller/imageUpload');
-
+var tweetController = require('./controller/tweetController')
 var userController = require('./controller/users');
+var imageController = require('./controller/imageController');
 
 
 const app = express();
@@ -24,9 +24,15 @@ mongoose.connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: t
     .catch(err => console.log(err));
 
 app.post('/registerUser', userController.register);
-app.use('/upload', uploadRouter);
+
+app.post('/imageUpload', imageController.image, imageController.imageFileName);
 
 app.post('/login', userController.login);
+
+
+app.post('/createTweet', tweetController.createTweet);
+
+app.get('/retriveTweet', tweetController.retrieveTweet);
 
 app.listen(process.env.PORT, () => {
     console.log(`App is running at localhost:${process.env.PORT}`);

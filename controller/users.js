@@ -13,14 +13,12 @@ function register(req, res, next) {
             return next(err);
         }
 
-        console.log(req.body);
+        // console.log(req.body);
 
         User.create({
             fullName: req.body.fullName,
             email: req.body.email,
-            phone: req.body.phone,
             password: hash,
-            bio: req.body.bio,
             profileImage: req.body.profileImage
         }).then((user) => {
             let token = jwt.sign({ _id: user._id }, process.env.SECRET);
@@ -33,7 +31,7 @@ function register(req, res, next) {
 }
 function login(req, res, next) {
     console.log(req.body)
-    User.findOne({ fullName: req.body.fullName })
+    User.findOne({ email: req.body.email })
         .then((user) => {
             if (user == null) {
                 let err = new Error('User not found!');

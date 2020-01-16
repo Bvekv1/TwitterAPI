@@ -1,4 +1,3 @@
-const express = require('express');
 const multer = require('multer');
 const path = require("path");
 
@@ -22,11 +21,14 @@ const upload = multer({
     fileFilter: imageFileFilter
 })
 
-const uploadRouter = express.Router();
+var image = upload.single('imageFile')
 
-uploadRouter.route('/')
-    .post(upload.single('imageFile'), (req, res) => {
-        res.json(req.file);
-    });
+function imageFileName(req,res){
+    console.log(req.file)
+    res.json(req.file)
+}
 
-module.exports = uploadRouter;
+module.exports = {
+    image,
+    imageFileName
+}
